@@ -21,6 +21,9 @@ dhatu = st.text_input(f"{transliterate('DAtuH atra', SLP1, DEVANAGARI)}")
 # Create a text input widget
 pratyaya = st.text_input(f"{transliterate('pratyayaH atra', SLP1, DEVANAGARI)}")
 
+#Known issues:
+#kr + ghan
+
 
 # Create a button
 if st.button("Submit"):

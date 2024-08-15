@@ -128,7 +128,7 @@ def find_is_dhatu_set(dhatu_mod_slp):
    
 def is_pratyaya_set(pratyaya, pratyaya_mod):
    it_in_pratyaya = set(pratyaya) - set(pratyaya_mod)
-   return (('S' not in it_in_pratyaya) and is_valadi(pratyaya))
+   return (('S' not in it_in_pratyaya) and is_valadi(pratyaya_mod))
 
 
 def load_krt_pratyayas():
@@ -181,8 +181,13 @@ def perform_Yit_Rit(dhatu, pratyaya, pratyaya_mod):
    if (is_ajanta(dhatu)):
     dhatu = f"{dhatu[:len(dhatu)-1]}{perform_vrddhi(dhatu[-1])}"
    # adupadhasya vrddhi 
-   if (dhatu[-1] == 'a'):
-      dhatu = f"{dhatu[:len(dhatu)-3]}{perform_vrddhi(dhatu[-2])}{dhatu[-1]}"
+   if (dhatu[-2] == 'a'):
+      dhatu = f"{dhatu[:len(dhatu)-2]}{perform_vrddhi(dhatu[-2])}{dhatu[-1]}"
+   # laghupadhasya guna
+   elif dhatu[-2] in ('i', 'u', 'f'):
+      dhatu = f"{dhatu[:len(dhatu)-2]}{perform_guna(dhatu[-2])}{dhatu[-1]}"
+   # otherwise guna
+
    #AtaH yuk?
    return apply_natvam(join_with_sandhi(dhatu, is_dhatu_set, pratyaya, pratyaya_mod))
 
