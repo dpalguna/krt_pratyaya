@@ -21,10 +21,25 @@ dhatu = st.text_input(f"{transliterate('DAtuH atra', SLP1, DEVANAGARI)}")
 # Create a text input widget
 pratyaya = st.text_input(f"{transliterate('pratyayaH atra', SLP1, DEVANAGARI)}")
 
-#Known issues:
-#kr + ghan
+# Footer
+footer = """
+<style>
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+</style>
+<div class="footer">
+    <p><a href="https://github.com/dpalguna/krt_pratyaya/blob/master/readme.md" target="_blank">Documentation and code</a></p>
+</div>
+"""
 
-
+st.markdown(footer, unsafe_allow_html=True)
 # Create a button
 if st.button("Submit"):
   if dhatu and pratyaya:
