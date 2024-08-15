@@ -9,9 +9,13 @@
 * अच् सन्धिः
 * धातुः प्रत्ययः validity checking
 
-Not implemented
-सरूपप्रत्यय checking (WIP) – reject dhatu/pratyaya combinations that dont apply for सरूप forms
-हल् सन्धिः
+**Not implemented**
+* सरूपप्रत्यय checking (WIP) – reject dhatu/pratyaya combinations that dont apply for सरूप forms
+* हल् सन्धिः
+* कित्-प्रत्यययोजनम्
+* कित्-प्रत्यययोजनम्
+* निष्ठा संबद्धनियमाः
+* नैके अपवादाः
 
 Some supported dhatus and pratyayas which have been tried
 
