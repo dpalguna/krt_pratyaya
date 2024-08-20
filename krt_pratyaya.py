@@ -187,8 +187,8 @@ def perform_Yit_Rit(dhatu, pratyaya, pratyaya_mod):
    elif dhatu[-2] in ('i', 'u', 'f'):
       dhatu = f"{dhatu[:len(dhatu)-2]}{perform_guna(dhatu[-2])}{dhatu[-1]}"
    # AtaH yuk -- 7.3.33 -- yuk Agama
-   elif (dhAtu[-1] == 'A'):
-      dhAtu = f"{dhatu}y"
+   elif (dhatu[-1] == 'A'):
+      dhatu = f"{dhatu}y"
    return apply_natvam(join_with_sandhi(dhatu, is_dhatu_set, pratyaya, pratyaya_mod))
 
 def perform_kit_Nit(dhatu, pratyaya, pratyaya_mod):
