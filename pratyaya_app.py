@@ -57,7 +57,6 @@ if st.button("Submit"):
        pratyaya_full = [p for p in all_krt_pratyayas if p["krt_pratyaya"] == pratyaya][0]
        mod_pratyaya_slp = transliterate(pratyaya_full["mod_krt_pratyaya"], DEVANAGARI, SLP1)
        result = perform_krt_prakriya(dhatu_slp, pratyaya_slp, mod_pratyaya_slp)
-       print(f"res {result}")
        if result is None:
            st.warning(f"{dhatu} + {pratyaya} yojanam ashakyam idAnIm")
        else:

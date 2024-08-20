@@ -123,15 +123,15 @@ def find_is_dhatu_set(dhatu_mod_slp):
    # Open and load the JSON file
    with open("dhaatu_patha_slp1.json", 'r') as file:
     all_dhatus = json.load(file)
-    dhatu_lookup =  list(filter(lambda d: d["dhatu_mod"] == dhatu_mod_slp, all_dhatus))[0]
+    dhatu_lookup =  list(filter(lambda d: get_string_between(d["dhatu_mod"], '(', ')') == dhatu_mod_slp, all_dhatus))[0]
     return dhatu_lookup["iT"] == "sew"
    
 def find_is_dhatu_curadi(dhatu_mod_slp):
    # Open and load the JSON file
    with open("dhaatu_patha_slp1.json", 'r') as file:
     all_dhatus = json.load(file)
-    dhatu_lookup =  list(filter(lambda d: d["dhatu_mod"] == dhatu_mod_slp, all_dhatus))[0]
-    return dhatu_lookup["gaRa"] == "curAdi"   
+    dhatu_lookup =  list(filter(lambda d: get_string_between(d["dhatu_mod"], '(', ')') == dhatu_mod_slp, all_dhatus))[0]
+    return dhatu_lookup["gaRa"] == "curAdi"
    
 def is_pratyaya_set(pratyaya, pratyaya_mod):
    it_in_pratyaya = set(pratyaya) - set(pratyaya_mod)
