@@ -126,6 +126,13 @@ def find_is_dhatu_set(dhatu_mod_slp):
     dhatu_lookup =  list(filter(lambda d: d["dhatu_mod"] == dhatu_mod_slp, all_dhatus))[0]
     return dhatu_lookup["iT"] == "sew"
    
+def find_is_dhatu_curadi(dhatu_mod_slp):
+   # Open and load the JSON file
+   with open("dhaatu_patha_slp1.json", 'r') as file:
+    all_dhatus = json.load(file)
+    dhatu_lookup =  list(filter(lambda d: d["dhatu_mod"] == dhatu_mod_slp, all_dhatus))[0]
+    return dhatu_lookup["gaRa"] == "curAdi"   
+   
 def is_pratyaya_set(pratyaya, pratyaya_mod):
    it_in_pratyaya = set(pratyaya) - set(pratyaya_mod)
    return (('S' not in it_in_pratyaya) and is_valadi(pratyaya_mod))
@@ -145,11 +152,14 @@ def get_sarupa_ya_pratyaya(dhatu: str):
   elif(dhatu == "Kan"):
      return "kyap"
 
-def join_with_sandhi(dhatu, is_dhatu_set, pratyaya, pratyaya_mod):
+def join_with_sandhi(dhatu, is_dhatu_set, is_dhatu_curadi, pratyaya, pratyaya_mod):
    updated_pratyaya = pratyaya_mod
+   updated_dhatu = dhatu
    if is_dhatu_set and is_pratyaya_set(pratyaya, pratyaya_mod):
       updated_pratyaya = "i" + pratyaya_mod
-   return perform_sandhi(dhatu, updated_pratyaya)
+   if is_dhatu_curadi and is_dhatu_set and is_pratyaya_set(pratyaya, pratyaya_mod):
+      updated_dhatu = dhatu + 'e'
+   return perform_sandhi(updated_dhatu, updated_pratyaya)
 
 def apply_natvam(term):
    is_nimittam_there = ('r' in set(term) or 's' in set(term))
@@ -167,16 +177,18 @@ def apply_natvam(term):
 
 def perform_samanya_prakriya(dhatu, pratyaya, pratyaya_mod):
    is_dhatu_set = find_is_dhatu_set(dhatu)
+   is_dhatu_curadi = find_is_dhatu_curadi(dhatu)
    if dhatu[-1].lower() in ('i', 'u', 'f', 'x'):
       # igantasya guna
       dhatu = f"{dhatu[:len(dhatu)-1]}{perform_guna(dhatu[-1])}"
       # laghupadhasya guna
    if dhatu[-2] in ('a', 'i', 'u', 'f'):
       dhatu = f"{dhatu[:len(dhatu)-2]}{perform_guna(dhatu[-2])}{dhatu[-1]}"
-   return apply_natvam(join_with_sandhi(dhatu, is_dhatu_set, pratyaya, pratyaya_mod))
+   return apply_natvam(join_with_sandhi(dhatu, is_dhatu_set, is_dhatu_curadi, pratyaya, pratyaya_mod))
 
 def perform_Yit_Rit(dhatu, pratyaya, pratyaya_mod):
    is_dhatu_set = find_is_dhatu_set(dhatu)
+   is_dhatu_curadi = find_is_dhatu_curadi(dhatu)
    # ajantasya vrddhi
    if (is_ajanta(dhatu)):
     dhatu = f"{dhatu[:len(dhatu)-1]}{perform_vrddhi(dhatu[-1])}"
@@ -189,7 +201,7 @@ def perform_Yit_Rit(dhatu, pratyaya, pratyaya_mod):
    # AtaH yuk -- 7.3.33 -- yuk Agama
    elif (dhatu[-1] == 'A'):
       dhatu = f"{dhatu}y"
-   return apply_natvam(join_with_sandhi(dhatu, is_dhatu_set, pratyaya, pratyaya_mod))
+   return apply_natvam(join_with_sandhi(dhatu, is_dhatu_set, is_dhatu_curadi, pratyaya, pratyaya_mod))
 
 def perform_kit_Nit(dhatu, pratyaya, pratyaya_mod):
    is_dhatu_set = find_is_dhatu_set(dhatu)
