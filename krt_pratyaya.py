@@ -106,11 +106,11 @@ def perform_sandhi(purvapadam, uttarapadam):
       return purvapadam + uttarapadam
 
 def get_string_between_or_return_orig(s, start_char, end_char):
-    try:
+    if(start_char in s and end_char in s):
         start_index = s.index(start_char) + 1
         end_index = s.index(end_char, start_index)
         return s[start_index:end_index]
-    except ValueError:
+    else:
         return s
 
 def load_dhatus():
