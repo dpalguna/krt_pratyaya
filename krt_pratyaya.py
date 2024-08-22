@@ -105,32 +105,32 @@ def perform_sandhi(purvapadam, uttarapadam):
    else:
       return purvapadam + uttarapadam
 
-def get_string_between(s, start_char, end_char):
+def get_string_between_or_return_orig(s, start_char, end_char):
     try:
         start_index = s.index(start_char) + 1
         end_index = s.index(end_char, start_index)
         return s[start_index:end_index]
     except ValueError:
-        return "Characters not found in the string."
+        return s
 
 def load_dhatus():
    # Open and load the JSON file
    with open("dhaatu_patha_slp1.json", 'r') as file:
     all_dhatus = json.load(file)
-    return [get_string_between(d["dhatu_mod"], '(', ')') if '(' in d["dhatu_mod"] else d["dhatu_mod"] for d in all_dhatus]
+    return [get_string_between_or_return_orig(d["dhatu_mod"], '(', ')') for d in all_dhatus]
    
 def find_is_dhatu_set(dhatu_mod_slp):
    # Open and load the JSON file
    with open("dhaatu_patha_slp1.json", 'r') as file:
     all_dhatus = json.load(file)
-    dhatu_lookup =  list(filter(lambda d: get_string_between(d["dhatu_mod"], '(', ')') == dhatu_mod_slp, all_dhatus))[0]
+    dhatu_lookup =  list(filter(lambda d: get_string_between_or_return_orig(d["dhatu_mod"], '(', ')') == dhatu_mod_slp, all_dhatus))[0]
     return dhatu_lookup["iT"] == "sew"
    
 def find_is_dhatu_curadi(dhatu_mod_slp):
    # Open and load the JSON file
    with open("dhaatu_patha_slp1.json", 'r') as file:
     all_dhatus = json.load(file)
-    dhatu_lookup =  list(filter(lambda d: get_string_between(d["dhatu_mod"], '(', ')') == dhatu_mod_slp, all_dhatus))[0]
+    dhatu_lookup =  list(filter(lambda d: get_string_between_or_return_orig(d["dhatu_mod"], '(', ')') == dhatu_mod_slp, all_dhatus))[0]
     return dhatu_lookup["gaRa"] == "curAdi"
    
 def is_pratyaya_set(pratyaya, pratyaya_mod):
